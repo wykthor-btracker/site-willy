@@ -10,7 +10,11 @@ import json
 #variables
 
 #classes
-class MyHTMLParser(HTMLParser):
+class Picture_Parser(HTMLParser):
+	def handle_starttag(self,tag,attrs):
+	def handle_data(self,data):
+	def handle_endtag(self,tag):
+class Yt_Url_HTMLParser(HTMLParser):
 	def init(self):
 		self.div = 0
 		self.att = 0
@@ -70,7 +74,7 @@ def main(args):
 		url = get_trailer_url(keys,url)
 		r = get(url)
 		text = normalize('NFKD', r.text).encode('ascii','ignore')
-		a = MyHTMLParser()
+		a = Yt_Url_HTMLParser()
 		a.init()
 		a.feed(text)
 		keys['url']=a.spit()
