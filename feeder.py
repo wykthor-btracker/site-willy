@@ -58,9 +58,8 @@ class Yt_Url_HTMLParser(HTMLParser):
 #classes
 #functions
 def populate_json(keys):
-	json_str = json.dumps(keys)
 	with open('data.json','a') as f:
-		json.dump(json_str,f)
+		json.dump(keys,f)
 def parse_list(filename):
 	names = []
 	with open(filename) as f:
