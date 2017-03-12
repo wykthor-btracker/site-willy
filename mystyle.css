@@ -7,6 +7,11 @@ bigger
     font-style: normal;
     font-size: 140%;
 }
+a.title:link    {color:#B9090B;background-color:transparent; text-decoration:none}
+a.title:visited {color:#B9090B;background-color:transparent; text-decoration:none}
+a.title:hover   {color:#B9090B;background-color:transparent; text-decoration:none}
+a.title:active  {color:#B9090B;background-color:transparent; text-decoration:none}
+
 smaller
 {
     font-style: normal;
@@ -15,11 +20,16 @@ smaller
 #right{
      float:right;
 }
+#navegar{
+	position:relative;
+	color:#B9090B;
+	}
 body
 {
 background-color: #202020;
 color:white;
 font:Graphique;
+background: none repeat scroll 0 0 #333;
 }
 .dropdown 
 {
@@ -31,7 +41,7 @@ font:Graphique;
 {
     display: none;
     position: absolute;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.6);
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 16px 20px;
@@ -41,4 +51,106 @@ font:Graphique;
 .dropdown:hover .dropdown-content 
 {
     display: block;
+}
+.imgWrap {
+  position: relative;
+  height: 250px;
+  width: 150px;
+}
+img {
+	width:250px;height:150px;border:0;
+	}
+#specific
+{
+	width:400px;
+	height:300px;
+	border:0;
+}
+.imgDescription {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(29, 106, 154, 0.72);
+  color: #fff;
+  visibility: hidden;
+  opacity: 0;
+  /*remove comment if you want a gradual transition between states
+      -webkit-transition: visibility opacity 0.2s;
+      */
+}
+.imgWrap:hover .imgDescription {
+  visibility: visible;
+  opacity: 1;
+}
+#my_table{
+    font-size:80%;
+}
+#2my_table{
+	margin-left:20px;
+	}
+.expanding-sf {
+}
+.form {
+    margin: 0 auto;
+    position: relative;
+    width: 300px;
+}
+/** Essentials **/
+ .toggle {
+    background: url("http://i.imgur.com/ePNPopY.png") no-repeat scroll center center #333333;
+    border: medium none;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: block;
+    height: 40px;
+    position: absolute;
+    right: 0;
+    width: 50px;
+}
+#searchform {
+    float: right;
+    height: 40px;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    transition: all 0.2s ease-in-out 0s;
+    visibility: hidden;
+    width: 40px;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+}
+.form:hover #searchform {
+    display: block;
+    opacity: 1;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    visibility: visible;
+    width: 250px;
+}
+#searchform #s {
+    background: none repeat scroll 0 0 #E14D43;
+    border: medium none;
+    color: #FFFFFF;
+    float: right;
+    outline: none;
+    font-family: helvetica, verdana, arial, sans-serif;
+    font-size: 12px;
+    height: 100%;
+    padding: 0 15px;
+    width: 100%;
+}
+#searchform #searchsubmit {
+    background: url("http://i.imgur.com/ePNPopY.png") no-repeat scroll center center #c6473f;
+    border: medium none;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: block;
+    height: 40px;
+    position: absolute;
+    right: 0;
+    width: 50px;
 }
