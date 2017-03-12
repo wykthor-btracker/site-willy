@@ -3,11 +3,10 @@ from unicodedata import normalize
 from requests import get
 from imdb import IMDb as imdb
 from HTMLParser import HTMLParser
+import json
 #imports
 
 #variables
-url = "https://www.google.com.br/search?q="
-keys = []
 #variables
 
 #classes
@@ -25,8 +24,9 @@ class MyHTMLParser(HTMLParser):
 		elif(('class','g') in attrs):
 			self.att = 0
 	def handle_data(self, data):
-		if(self.div == 1 and self.att == 1 and 'https' in data):
+		if(self.div == 1 and self.att == 1 and 'https://www.youtube.com/watch?v=' in data and self.found == 0):
 			self.data = data
+			self.found = 0
 	def handle_endtag(self,tag):
 		if(tag=="div"):
 			self.tag = 0	
@@ -34,31 +34,47 @@ class MyHTMLParser(HTMLParser):
 		return(self.data)
 #classes
 #functions
+def populate_json(keys):
+	json_str = json.dumps(keys)
+	with open('data.json','a') as f:
+		json.dump(json_str,f)
+def parse_list(filename):
+	names = []
+	with open(filename) as f:
+		names=f.read().split('\n')
+	return(names)
+	
 def get_keys(name,keys):
 	ia = imdb()
 	result = ia.search_movie(name)
 	result = result[0]
-	keys = [result['title'],result['year'],result.movieID,str(ia.get_movie_plot(result.movieID)['data']['plot'][0])]
+	keys = {'title':str(result['title'].encode('ascii','ignore')),'year':result['year'],'id':result.movieID,'plot':str(ia.get_movie_plot(result.movieID)['data']['plot'][0]).encode('ascii','ignore')}
 	return(keys)
 	
 def get_trailer_url(keys,url):
-	url+='+'.join(keys[0].split(' '))+str(keys[1])
+	keys['title'] += ' trailer'
+	url+='+'.join(keys['title'].split(' '))+'+'+str(keys['year'])
 	return(url)
 #functions
 
 #main
 def main(args):
-	url = "https://www.google.com.br/search?q="
 	keys = []
-	name = 'Toxic Avenger'
-	keys = get_keys(name,keys)
-	url = get_trailer_url(keys,url)
-	r = get(url)
-	text = normalize('NFKD', r.text).encode('utf-8','ignore')
-	a = MyHTMLParser()
-	a.init()
-	a.feed(text)
-	keys.append(a.spit())
+	names = []
+	name = ''
+	names = parse_list('input.txt')
+	for item in names:
+		url = "https://www.google.com.br/search?q="
+		name = item
+		keys = get_keys(name,keys)
+		url = get_trailer_url(keys,url)
+		r = get(url)
+		text = normalize('NFKD', r.text).encode('ascii','ignore')
+		a = MyHTMLParser()
+		a.init()
+		a.feed(text)
+		keys['url']=a.spit()
+		populate_json(keys)
 	return 0
 #main
 if __name__ == '__main__':
