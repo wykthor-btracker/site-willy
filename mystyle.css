@@ -1,0 +1,44 @@
+a:link    {color:white; background-color:transparent; text-decoration:none}
+a:visited {color:white; background-color:transparent; text-decoration:none}
+a:hover   {color:white; background-color:transparent; text-decoration:underline}
+a:active  {color:white; background-color:transparent; text-decoration:none}
+bigger
+{
+    font-style: normal;
+    font-size: 140%;
+}
+smaller
+{
+    font-style: normal;
+    font-size:80%;
+}
+#right{
+     float:right;
+}
+body
+{
+background-color: #202020;
+color:white;
+font:Graphique;
+}
+.dropdown 
+{
+    position: relative;
+    display: inline-block;
+}
+ 
+.dropdown-content 
+{
+    display: none;
+    position: absolute;
+    background-color: rgba(0,0,0,0.8);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 16px 20px;
+    z-index: 1;
+}
+ 
+.dropdown:hover .dropdown-content 
+{
+    display: block;
+}
