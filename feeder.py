@@ -18,20 +18,15 @@ class Picture_Parser(HTMLParser):
 		self.data = ''
 		self.attrs = []
 	def handle_starttag(self,tag,attrs):
-		if (tag=="div"):
-			self.div = 1
 		try:
-			for i in attrs:
-				print(i)
-				if('src' in i and self.found <2 and not '/textinputassistant/tia.png' in i[1]):
-					self.data = i[1]
-					self.found +=1
-			print('\n')
+			if('src' in attrs[1][0] and 'alt' in attrs[3][0] and 'http' in attrs[1][1] and self.found == 0):
+					self.data = attrs[1][1]
+					print("Added:"+attrs[1][1])
+					self.found = 1
+			else:
+				pass
 		except:
 			pass
-	def handle_endtag(self,tag):
-		if(tag=="div"):
-			self.tag = 0
 	def spit(self):
 		return(self.data)
 		
@@ -60,8 +55,27 @@ class Yt_Url_HTMLParser(HTMLParser):
 #classes
 #functions
 def populate_json(keys):
-	with open('data.json','a') as f:
+	curr = []
+	try:
+		with open('data.json','r') as f:
+			curr = json.load(f)
+			for i in curr:
+				if not i in keys:
+					keys.append(i)
+	except:
+		pass
+	with open('data.json','w') as f:
 		json.dump(keys,f)
+
+def parse_genres(lists):
+	flist = []
+	ia = imdb()
+	fdict = lists
+	for i in fdict:
+		info = ia.get_movie(int(i['id']),'main')
+		i['genres'] = info['genres']
+	return(fdict)
+
 def parse_list(filename):
 	names = []
 	with open(filename) as f:
@@ -120,6 +134,7 @@ def main(args):
 			lists.append(keys)
 		else:
 			errors+=1
+	lists = parse_genres(lists)
 	populate_json(lists)
 	print("Total movies added:"+str(movies))
 	print("Total errors:"+str(errors))
