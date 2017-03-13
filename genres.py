@@ -22,7 +22,7 @@ def parse_genres():
 		info = info['genres']
 		for u in info:
 			if(not u.encode('utf-8','ignore') in flist):
-				flist.append()
+				flist.append(u.encode('utf-8','ignore'))
 	return(flist)
 def populate_genres(flist):
 	with open('genres.txt','w') as f:
@@ -32,8 +32,7 @@ def populate_genres(flist):
 
 #main
 def main(args):
-	flist = parse_genres()
-	print(flist)
+	populate_genres(parse_genres())
 	return 0
 #main#
 if __name__ == '__main__':

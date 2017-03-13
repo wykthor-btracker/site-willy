@@ -29,8 +29,6 @@ class Picture_Parser(HTMLParser):
 			print('\n')
 		except:
 			pass
-	def handle_data(self,data):
-		
 	def handle_endtag(self,tag):
 		if(tag=="div"):
 			self.tag = 0
