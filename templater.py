@@ -1,19 +1,50 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-#fileheader
 #imports
 import json
+import os.path
 #variables
 
 #classes
 
 #functions
+def get_filepath(movie_id):
+	root = os.path.dirname(os.path.realpath("__file__"))
+	subdir = "pages"
+	filename = movie_id+'.html'
+	return os.path.join(root,subdir,filename)
+	
 def get_index():
 	with open('index.html','r') as f:
 		index = f.read()
 	return(index)
 	
+def get_template():
+	with open('template.html','r') as f:
+		template = f.read()
+	return(template)
+	
+def specific_template(temp,movie):
+	temp = temp.replace("{title}",movie['title'][:-8])
+	temp = temp.replace("{filme}",movie['title'][:-8])
+	temp = temp.replace("{url}",movie['url'])
+	temp = temp.replace("{sinopse}",movie['plot'])
+	return temp
+
+def create_page(temp,movie):
+	filepath = get_filepath(movie['id'])
+	with open(filepath,'w') as f:
+		f.write(temp)
+	
+def get_line_template(index):
+	first = index.find('<p style="color:grey">')
+	last = index[first:].find('</table')+len('</table>')+first
+	return index[first:last]
+	
+def write_table(table,movies,template):
+	table = table.replace(template,movies)
+	return table
+		
 def get_pic_template(index):
 	first = index.find('<td id = "template">')
 	last = index[first:].find('</td>')+len('</td>')+first
@@ -55,17 +86,34 @@ def sort_genres(m_list,genres):
 					curr.append(movie['id'])
 		sorted_list.append(curr)
 	return(sorted_list)
+	
 #main
 def main():
 	m_list = get_movie_list()
 	index = get_index()
+	table_template = get_line_template(index)
 	pic_template = get_pic_template(index)
 	genres = get_genres(m_list)
 	sorted_list = sort_genres(m_list,genres)
-	g_list = ''
-	for i in range(5):
-		g_list+=prepare_template(pic_template,m_list[i])
-	print(g_list)
+	table = ''
+	for u in range(10):
+		g_list = ''
+		found = 0
+		i = 0
+		while(found<8):
+			if(genres[u] in m_list[i]['genres']):
+				g_list+=prepare_template(pic_template,m_list[i])
+				spec_template = get_template()
+				spec_template = specific_template(spec_template,m_list[i])
+				create_page(spec_template,m_list[i])
+				found+=1
+				table_genre = table_template.replace("{genero}",genres[u])
+				m_list.remove(m_list[i])
+			i=(i+1)%len(m_list)
+		table+=write_table(table_genre,g_list,pic_template)
+	index = index.replace(table_template,table)
+	with open('index.html','w') as f:
+		f.write(index)
 	return 0
 
 if __name__ == '__main__':

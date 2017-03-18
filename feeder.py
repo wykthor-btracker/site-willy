@@ -123,7 +123,7 @@ def main(args):
 			a.init()
 			a.feed(text)
 			keys['url']=a.spit()
-			url = "http://www.google.com/images?q=site:http://www.impawards.com"
+			url = "http://www.google.com/images?q=poster+"
 			url = get_resource_url(keys,url)
 			r = get(url)
 			text = normalize('NFKD', r.text).encode('ascii','ignore')
