@@ -243,3 +243,8 @@ Pirates of the Caribbean: The Curse of the Black Pearl
 A Canção do Oceano
 Sin City
 Lagaan: Era uma Vez na Índia
+
+<p style="color:grey"><bigger>{genero}</bigger></p>
+<table id="2my_table"><td id = "template"><a href="pages/{id}.html">
+  <img src={pic}><p class="imgDescription">This image looks super neat.</p>
+</a></td></table>

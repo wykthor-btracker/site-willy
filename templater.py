@@ -96,11 +96,11 @@ def main():
 	genres = get_genres(m_list)
 	sorted_list = sort_genres(m_list,genres)
 	table = ''
-	for u in range(10):
+	for u in range(15):
 		g_list = ''
 		found = 0
 		i = 0
-		while(found<8):
+		while(found<6):
 			if(genres[u] in m_list[i]['genres']):
 				g_list+=prepare_template(pic_template,m_list[i])
 				spec_template = get_template()
