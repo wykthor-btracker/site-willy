@@ -25,7 +25,7 @@ def get_template():
 		template = f.read()
 	return(template)
 	
-def specific_template(temp,movie):
+def specific_template(temp,movie,m_list):
 	temp = temp.replace("{title}",movie['title'][:-8])
 	temp = temp.replace("{filme}",movie['title'][:-8])
 	temp = temp.replace("{url}",movie['url'])
@@ -35,7 +35,12 @@ def specific_template(temp,movie):
 	subtemp = temp[first:last]
 	similar = ''
 	for i in range(5):
-		
+		curr = subtemp
+		for u in m_list:
+			if not u['id'] in similar and movie['id'] != u['id']:
+				similar += prepare_template(curr,u)
+				break
+	temp = temp.replace(subtemp,similar)
 	return temp
 
 def create_page(temp,movie):
@@ -120,7 +125,7 @@ def main():
 					break				
 				g_list+=prepare_template(pic_template,m_list[i])
 				spec_template = get_template()
-				spec_template = specific_template(spec_template,m_list[i])
+				spec_template = specific_template(spec_template,m_list[i],m_list)
 				create_page(spec_template,m_list[i])
 				table_genre = table_template.replace("{genero}",genres[u])
 				if(not genres[u] in links):
