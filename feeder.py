@@ -139,6 +139,7 @@ def main(args):
 	print("Total movies added:"+str(movies))
 	print("Total errors:"+str(errors))
 	return 0
+	
 #main
 if __name__ == '__main__':
     import sys
