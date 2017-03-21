@@ -30,6 +30,12 @@ def specific_template(temp,movie):
 	temp = temp.replace("{filme}",movie['title'][:-8])
 	temp = temp.replace("{url}",movie['url'])
 	temp = temp.replace("{sinopse}",movie['plot'])
+	first = temp.find("<start>")+len("<start>")
+	last = temp[first:].find("<end>")+first
+	subtemp = temp[first:last]
+	similar = ''
+	for i in range(5):
+		
 	return temp
 
 def create_page(temp,movie):
