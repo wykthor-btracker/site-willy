@@ -30,14 +30,15 @@ def specific_template(temp,movie,m_list):
 	temp = temp.replace("{filme}",movie['title'][:-8])
 	temp = temp.replace("{url}",movie['url'])
 	temp = temp.replace("{sinopse}",movie['plot'])
+	temp = temp.replace("{genero}",movie['genres'][0])
 	first = temp.find("<start>")+len("<start>")
 	last = temp[first:].find("<end>")+first
 	subtemp = temp[first:last]
 	similar = ''
-	for i in range(5):
+	for i in range(6):
 		curr = subtemp
 		for u in m_list:
-			if not u['id'] in similar and movie['id'] != u['id']:
+			if not u['id'] in similar and movie['id'] != u['id'] and movie['genres'][0] in u['genres']:
 				similar += prepare_template(curr,u)
 				break
 	temp = temp.replace(subtemp,similar)
