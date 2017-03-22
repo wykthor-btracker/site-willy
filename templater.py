@@ -110,7 +110,7 @@ def main():
 	sorted_list = sort_genres(m_list,genres)
 	table = ''
 	links = []
-	for u in range(15):
+	for u in range(18):
 		g_list = ''
 		found = 0
 		i = -1
