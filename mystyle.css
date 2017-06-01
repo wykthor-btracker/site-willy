@@ -40,7 +40,7 @@ background: none repeat scroll 0 0 #333;
 .dropdown-content 
 {
     display: none;
-    position: absolute;
+    position: fixed;
     background-color: rgba(0,0,0,0.6);
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -59,6 +59,9 @@ background: none repeat scroll 0 0 #333;
 }
 img {
 	width:150px;height:250px;border:0;
+	}
+p {
+	margin-top:30px;
 	}
 #specific
 {
@@ -101,7 +104,7 @@ img {
  .toggle {
     background: url("http://i.imgur.com/ePNPopY.png") no-repeat scroll center center #333333;
     border: medium none;
-    color: #FFFFFF;
+    color: rgba(20,20,20,0.2);
     cursor: pointer;
     display: block;
     height: 40px;
@@ -134,7 +137,7 @@ img {
 #searchform #s {
     background: none repeat scroll 0 0 #E14D43;
     border: medium none;
-    color: #FFFFFF;
+    color: rgba(20,20,20,0.2);
     float: right;
     outline: none;
     font-family: helvetica, verdana, arial, sans-serif;
@@ -146,7 +149,7 @@ img {
 #searchform #searchsubmit {
     background: url("http://i.imgur.com/ePNPopY.png") no-repeat scroll center center #c6473f;
     border: medium none;
-    color: #FFFFFF;
+    color: rgba(20,20,20,0.2);
     cursor: pointer;
     display: block;
     height: 40px;
@@ -182,3 +185,15 @@ img {
     height: 16px;
     background: url('http://kubyshkin.ru/samples/star-rating/star.png') 0 -16px;
 }
+.navbar {
+  overflow: hidden;
+  background-color: rgba(20,20,20,0.4);
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.main {
+  padding: 16px;
+  margin-top: 30px;
+  }
